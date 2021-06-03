@@ -1,0 +1,160 @@
+﻿@model MachineAcafe.ViewModels.AcceuilViewModel
+@{
+    var sugar = Model.commandeViewModel != null ? Model.commandeViewModel.Sugar : 0;
+
+    var utilisateurNomPrenom= Model.commandeViewModel != null ? Model.commandeViewModel.NomUtilisateur+" "+Model.commandeViewModel.PrenomUtilisateur : "";
+
+    var choixBoisson = Model.commandeViewModel != null ? Model.commandeViewModel.IdBoisson : 0;
+    var withMug = Model.commandeViewModel != null ? Model.commandeViewModel.WithMug : false;
+ }
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Coffee</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="/Content/css/linearicons.css">
+    <link rel="stylesheet" href="/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Content/css/bootstrap.css">
+    <link rel="stylesheet" href="/Content/css/magnific-popup.css">
+    <link rel="stylesheet" href="/Content/css/nice-select.css">
+    <link rel="stylesheet" href="/Content/css/animate.min.css">
+    <link rel="stylesheet" href="/Content/css/owl.carousel.css">
+    <link rel="stylesheet" href="/Content/css/main.css">
+</head>
+<body>
+
+    <header id="header" id="home">
+    </header><!-- #header -->
+    <!-- start banner Area -->
+    <!-- End banner Area -->
+    <!-- Start video-sec Area -->
+    <!-- End video-sec Area -->
+    <!-- Start menu Area -->
+    <section class="menu-area section-gap" id="coffee">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-60 col-lg-10">
+                    <div class="title text-center">
+                        <h1 class="mb-10">Prenez votre temps ,prenez votre café</h1>
+                        @if (TempData["Error"] != null)
+                        {
+            <p class="alert alert-danger">@TempData["Error"]</p>}
+                        @if (TempData["Success"] != null)
+                        {
+            <p class="alert alert-success">@TempData["Success"] </p>}
+
+                    </div>
+                </div>
+
+            </div>
+            <form class="form-horizontal" action="@Url.Action("GetOrder", "Home")" method="post">
+                <h4 class="custom-control-label">Entrer votre identifiant</h4>
+                <input class="form-control" type="text" name="identifiantPersonne" />
+                <br />
+                <h6 class="form-label" for="SugarRange">Choisissez votre sucre</h6>
+                <div class="range">
+                    <input type="range" class="form-range" min="0" max="5" id="SugarRange" name="SugarRange" value="@sugar" sstyle="width: 300px;" />
+                </div>
+                <h6 class="custom-control-label">Sucre : <span id="SugarValue"></span></h6>
+                <br />
+                <h6 class="form-label" for="mug">Utiliser votre propre mug?</h6>
+                @if (withMug)
+                {
+                <input type="radio" name="mug" value="true" checked><span>Oui</span> }
+                else
+                {
+                    <input type="radio" name="mug" value="true"><span>Oui</span>
+               }
+
+                <br />
+                @if (!withMug)
+                {
+                    <input type="radio" name="mug" value="false" checked><span>Non</span> }
+
+                        else
+                  {
+                    <input type="radio" name="mug" value="false"><span>Non</span>
+                    
+                    
+                    }
+
+
+                <br />
+
+                <div class="row">
+                    @foreach (var typeBoisson in Model.TypeBoissonViewModels)
+                    {
+
+                        <div class="col-lg-4">
+                            <div class="single-menu">
+                                @if (choixBoisson == typeBoisson.Id)
+                                {
+                                    <input type="radio" name="IdBoisson" value="@typeBoisson.Id" checked> 
+                                }
+                                else
+                                {
+                                    <input type="radio" name="IdBoisson" value="@typeBoisson.Id">
+                                }
+
+                                <div class="title-div justify-content-between d-flex">
+                                    <h4>@typeBoisson.libelle</h4>
+                                    <p class="price float-right">
+                                        0,30 €
+                                    </p>
+                                </div>
+                                <p>
+                                    @typeBoisson.description
+                                </p>
+                            </div>
+                        </div>
+            
+            
+                }
+
+
+                </div>
+                <input type="submit" class="btn btn-primary" />
+            </form>
+
+        </div>
+    </section>
+  
+
+    <script src="/Content/Scripts/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper./Content/Scripts1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="/Content/Scripts/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="/Content/Scripts/easing.min.js"></script>
+    <script src="/Content/Scripts/hoverIntent.js"></script>
+    <script src="/Content/Scripts/superfish.min.js"></script>
+    <script src="/Content/Scripts/jquery.ajaxchimp.min.js"></script>
+    <script src="/Content/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="/Content/Scripts/owl.carousel.min.js"></script>
+    <script src="/Content/Scripts/jquery.sticky.js"></script>
+    <script src="/Content/Scripts/jquery.nice-select.min.js"></script>
+    <script src="/Content/Scripts/parallax.min.js"></script>
+    <script src="/Content/Scripts/waypoints.min.js"></script>
+    <script src="/Content/Scripts/jquery.counterup.min.js"></script>
+    <script src="/Content/Scripts/mail-script.js"></script>
+    <script src="/Content/Scripts/main.js"></script>
+
+</body>
+
+
+

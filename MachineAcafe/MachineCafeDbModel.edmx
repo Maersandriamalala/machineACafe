@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MachineCafeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Sucre" Type="int" Nullable="false" />
+          <Property Name="IsWithMug" Type="bit" Nullable="false" />
+          <Property Name="DateCommande" Type="date" Nullable="false" />
+          <Property Name="UtilisateurID" Type="int" Nullable="false" />
+          <Property Name="TypeBoissonID" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeBoisson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="libelle" Type="nchar" MaxLength="500" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="prix" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Identifiant" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="FK__Commande__TypeBo__4D94879B">
+          <End Role="TypeBoisson" Type="Self.TypeBoisson" Multiplicity="1" />
+          <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeBoisson">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="TypeBoissonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commande__Utilis__4CA06362">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="UtilisateurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MachineCafeModelStoreContainer">
+          <EntitySet Name="Commande" EntityType="Self.Commande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeBoisson" EntityType="Self.TypeBoisson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Commande__TypeBo__4D94879B" Association="Self.FK__Commande__TypeBo__4D94879B">
+            <End Role="TypeBoisson" EntitySet="TypeBoisson" />
+            <End Role="Commande" EntitySet="Commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commande__Utilis__4CA06362" Association="Self.FK__Commande__Utilis__4CA06362">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Commande" EntitySet="Commande" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MachineCafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Commande">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Sucre" Type="Int32" Nullable="false" />
+          <Property Name="IsWithMug" Type="Boolean" Nullable="false" />
+          <Property Name="DateCommande" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UtilisateurID" Type="Int32" Nullable="false" />
+          <Property Name="TypeBoissonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypeBoisson" Relationship="Self.FK__Commande__TypeBo__4D94879B" FromRole="Commande" ToRole="TypeBoisson" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Commande__Utilis__4CA06362" FromRole="Commande" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="TypeBoisson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+         
+          <NavigationProperty Name="Commande" Relationship="Self.FK__Commande__TypeBo__4D94879B" FromRole="TypeBoisson" ToRole="Commande" />
+          <Property Name="prix" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Identifiant" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Nom" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Commande" Relationship="Self.FK__Commande__Utilis__4CA06362" FromRole="Utilisateur" ToRole="Commande" />
+        </EntityType>
+        <Association Name="FK__Commande__TypeBo__4D94879B">
+          <End Role="TypeBoisson" Type="Self.TypeBoisson" Multiplicity="1" />
+          <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeBoisson">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="TypeBoissonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commande__Utilis__4CA06362">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commande">
+              <PropertyRef Name="UtilisateurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MachineCafeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Commande" EntityType="Self.Commande" />
+          <EntitySet Name="TypeBoisson" EntityType="Self.TypeBoisson" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="FK__Commande__TypeBo__4D94879B" Association="Self.FK__Commande__TypeBo__4D94879B">
+            <End Role="TypeBoisson" EntitySet="TypeBoisson" />
+            <End Role="Commande" EntitySet="Commande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commande__Utilis__4CA06362" Association="Self.FK__Commande__Utilis__4CA06362">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Commande" EntitySet="Commande" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MachineCafeModelStoreContainer" CdmEntityContainer="MachineCafeEntities">
+          <EntitySetMapping Name="Commande">
+            <EntityTypeMapping TypeName="MachineCafeModel.Commande">
+              <MappingFragment StoreEntitySet="Commande">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sucre" ColumnName="Sucre" />
+                <ScalarProperty Name="IsWithMug" ColumnName="IsWithMug" />
+                <ScalarProperty Name="DateCommande" ColumnName="DateCommande" />
+                <ScalarProperty Name="UtilisateurID" ColumnName="UtilisateurID" />
+                <ScalarProperty Name="TypeBoissonID" ColumnName="TypeBoissonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeBoisson">
+            <EntityTypeMapping TypeName="MachineCafeModel.TypeBoisson">
+              <MappingFragment StoreEntitySet="TypeBoisson">
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="description" ColumnName="description" />
+  
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur">
+            <EntityTypeMapping TypeName="MachineCafeModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Identifiant" ColumnName="Identifiant" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

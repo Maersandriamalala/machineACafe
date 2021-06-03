@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MachineCafeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Commande">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Sucre" Type="int" Nullable="false" />
+    <Property Name="IsWithMug" Type="bit" Nullable="false" />
+    <Property Name="DateCommande" Type="date" Nullable="false" />
+    <Property Name="UtilisateurID" Type="int" Nullable="false" />
+    <Property Name="TypeBoissonID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeBoisson">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="libelle" Type="nchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Identifiant" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <Association Name="FK__Commande__TypeBo__4D94879B">
+    <End Role="TypeBoisson" Type="Self.TypeBoisson" Multiplicity="1" />
+    <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeBoisson">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="TypeBoissonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Commande__Utilis__4CA06362">
+    <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+    <End Role="Commande" Type="Self.Commande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateur">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commande">
+        <PropertyRef Name="UtilisateurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MachineCafeModelStoreContainer">
+    <EntitySet Name="Commande" EntityType="Self.Commande" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeBoisson" EntityType="Self.TypeBoisson" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Commande__TypeBo__4D94879B" Association="Self.FK__Commande__TypeBo__4D94879B">
+      <End Role="TypeBoisson" EntitySet="TypeBoisson" />
+      <End Role="Commande" EntitySet="Commande" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Commande__Utilis__4CA06362" Association="Self.FK__Commande__Utilis__4CA06362">
+      <End Role="Utilisateur" EntitySet="Utilisateur" />
+      <End Role="Commande" EntitySet="Commande" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

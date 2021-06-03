@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MachineCafeModelStoreContainer" CdmEntityContainer="MachineCafeEntities">
+    <EntitySetMapping Name="Commande">
+      <EntityTypeMapping TypeName="MachineCafeModel.Commande">
+        <MappingFragment StoreEntitySet="Commande">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sucre" ColumnName="Sucre" />
+          <ScalarProperty Name="IsWithMug" ColumnName="IsWithMug" />
+          <ScalarProperty Name="DateCommande" ColumnName="DateCommande" />
+          <ScalarProperty Name="UtilisateurID" ColumnName="UtilisateurID" />
+          <ScalarProperty Name="TypeBoissonID" ColumnName="TypeBoissonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeBoisson">
+      <EntityTypeMapping TypeName="MachineCafeModel.TypeBoisson">
+        <MappingFragment StoreEntitySet="TypeBoisson">
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateur">
+      <EntityTypeMapping TypeName="MachineCafeModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identifiant" ColumnName="Identifiant" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
